@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    --midnight: #0a0a1a;
+    --magenta: #ff00cc;
+    --magenta-light: #ff3399;
+    --cyan: #00f2ff;
+    --cyan-light: #00ccff;
+    --violet: #8b5cf6;
+  }
+
+  * {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--midnight);
+    color: #ffffff;
+  }
+}
+
+/* Cyberpunk Utilities */
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .text-glow-magenta {
+    text-shadow: 0 0 10px var(--magenta), 0 0 20px var(--magenta), 0 0 40px var(--magenta);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan), 0 0 40px var(--cyan);
+  }
+
+  .border-glow-magenta {
+    box-shadow: 0 0 10px var(--magenta), inset 0 0 10px rgba(255, 0, 204, 0.1);
+  }
+
+  .border-glow-cyan {
+    box-shadow: 0 0 10px var(--cyan), inset 0 0 10px rgba(0, 242, 255, 0.1);
+  }
+
+  .btn-cyberpunk {
+    @apply relative overflow-hidden px-8 py-4 rounded-full font-bold text-white transition-all duration-300;
+    background: linear-gradient(90deg, var(--magenta) 0%, var(--cyan) 100%);
+    box-shadow: 0 0 20px rgba(255, 0, 204, 0.4), 0 0 40px rgba(0, 242, 255, 0.2);
+  }
+
+  .btn-cyberpunk:hover {
+    box-shadow: 0 0 30px rgba(255, 0, 204, 0.6), 0 0 60px rgba(0, 242, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .card-cyber {
+    @apply relative rounded-2xl p-6;
+    background: rgba(15, 15, 40, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 242, 255, 0.2);
+  }
+
+  .card-cyber:hover {
+    border-color: rgba(255, 0, 204, 0.5);
+    box-shadow: 0 0 20px rgba(255, 0, 204, 0.2);
+  }
+
+  .neon-border-cyan {
+    border: 1px solid rgba(0, 242, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3), inset 0 0 10px rgba(0, 242, 255, 0.05);
+  }
+
+  .neon-border-magenta {
+    border: 1px solid rgba(255, 0, 204, 0.5);
+    box-shadow: 0 0 10px rgba(255, 0, 204, 0.3), inset 0 0 10px rgba(255, 0, 204, 0.05);
+  }
+}
+
+/* Background Effects */
+.cyber-bg {
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(0, 242, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 0, 204, 0.05) 0%, transparent 70%),
+    var(--midnight);
+}
+
+/* Star particles background */
+.stars-bg {
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(0, 242, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255, 0, 204, 0.3), transparent),
+    radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 160px 120px, rgba(0, 242, 255, 0.3), transparent);
+  background-size: 200px 150px;
+  animation: twinkle 8s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--midnight);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--magenta) 0%, var(--cyan) 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--magenta-light) 0%, var(--cyan-light) 100%);
+}
+
+/* Selection */
+::selection {
+  background: var(--magenta);
+  color: white;
+}
+
+/* Icon glow effects */
+.icon-glow {
+  filter: drop-shadow(0 0 8px currentColor);
+}
