@@ -21,7 +21,7 @@ export function ProductsSection({ onNavigate }: ProductsSectionProps) {
         .select('*')
         .eq('is_active', true)
         .order('created_at', { ascending: false });
-      
+
       if (data) setProducts(data);
       setLoading(false);
     }
@@ -50,7 +50,7 @@ export function ProductsSection({ onNavigate }: ProductsSectionProps) {
   return (
     <section id="products" className="py-20 cyber-bg relative">
       <div className="absolute inset-0 stars-bg opacity-30" />
-      
+
       <div className="relative max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-magenta/20 text-magenta-light px-4 py-2 rounded-full text-sm font-bold mb-4 border border-magenta/30">
@@ -59,7 +59,7 @@ export function ProductsSection({ onNavigate }: ProductsSectionProps) {
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-white">Nuestra Tienda</h2>
           <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
-            Productos de calidad y articulos personalizados con tu diseno unico
+            Productos de calidad y artículos personalizados con tu diseño único
           </p>
         </div>
 
@@ -73,11 +73,10 @@ export function ProductsSection({ onNavigate }: ProductsSectionProps) {
             <button
               key={tab.id}
               onClick={() => setFilter(tab.id as typeof filter)}
-              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-                filter === tab.id
+              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${filter === tab.id
                   ? 'bg-gradient-to-r from-magenta to-cyan text-white shadow-glow-magenta'
                   : 'bg-midnight-light text-gray-400 hover:text-white border border-cyan/20 hover:border-cyan/50'
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -115,9 +114,9 @@ export function ProductsSection({ onNavigate }: ProductsSectionProps) {
                     {product.category === 'fundas' ? (
                       <Smartphone className="w-10 h-10 text-cyan" />
                     ) : product.category === 'ropa' ? (
-                      <svg className="w-10 h-10 text-magenta-light" fill="currentColor" viewBox="0 0 24 24"><path d="M6 2L2 8l4 2v12h12V10l4-2-4-6H6zm2 2h8l2.67 4L12 12 5.33 8 8 4z"/></svg>
+                      <svg className="w-10 h-10 text-magenta-light" fill="currentColor" viewBox="0 0 24 24"><path d="M6 2L2 8l4 2v12h12V10l4-2-4-6H6zm2 2h8l2.67 4L12 12 5.33 8 8 4z" /></svg>
                     ) : (
-                      <svg className="w-10 h-10 text-violet" fill="currentColor" viewBox="0 0 24 24"><path d="M20 12V10H4v2l8 5 8-5zm0-7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/></svg>
+                      <svg className="w-10 h-10 text-violet" fill="currentColor" viewBox="0 0 24 24"><path d="M20 12V10H4v2l8 5 8-5zm0-7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z" /></svg>
                     )}
                   </div>
                 </div>
@@ -127,7 +126,7 @@ export function ProductsSection({ onNavigate }: ProductsSectionProps) {
                   <h3 className="text-white font-bold mt-1 group-hover:text-cyan transition-colors">
                     {product.name}
                   </h3>
-                  
+
                   <div className="flex items-center gap-2 mt-3">
                     {product.discount_price ? (
                       <>
@@ -141,11 +140,10 @@ export function ProductsSection({ onNavigate }: ProductsSectionProps) {
 
                   <button
                     onClick={() => handleAddToCart(product)}
-                    className={`w-full mt-4 py-2.5 rounded-full font-bold transition-all flex items-center justify-center gap-2 ${
-                      product.is_pod
+                    className={`w-full mt-4 py-2.5 rounded-full font-bold transition-all flex items-center justify-center gap-2 ${product.is_pod
                         ? 'bg-gradient-to-r from-violet to-magenta hover:shadow-glow-magenta text-white'
                         : 'bg-gradient-to-r from-cyan to-cyan-light hover:shadow-glow-cyan text-midnight'
-                    }`}
+                      }`}
                   >
                     {product.is_pod ? (
                       <>

@@ -18,7 +18,7 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps) {
         .select('*')
         .eq('is_active', true)
         .order('base_price', { ascending: true });
-      
+
       if (data) setServices(data);
       setLoading(false);
     }
@@ -29,13 +29,13 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps) {
     <section id="services" className="py-20 bg-midnight-light relative">
       <div className="absolute inset-0 stars-bg opacity-20" />
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-magenta via-violet to-cyan" />
-      
+
       <div className="relative max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <span className="text-cyan text-sm font-bold uppercase tracking-widest">Servicios</span>
           <h2 className="text-3xl md:text-4xl font-black text-white mt-2">Reparaciones Profesionales</h2>
           <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
-            Expertos en reparacion de dispositivos moviles con garantia y precios competitivos
+            Expertos en reparación de dispositivos móviles con garantía y precios competitivos
           </p>
         </div>
 
@@ -45,22 +45,22 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps) {
             <div className="w-14 h-14 bg-cyan/10 rounded-xl flex items-center justify-center mb-4 group-hover:shadow-glow-cyan transition-all">
               <Wrench className="w-8 h-8 text-cyan icon-glow" />
             </div>
-            <h3 className="text-white font-bold text-lg mb-2">Tecnicos Certificados</h3>
-            <p className="text-gray-400 text-sm">Personal altamente capacitado con anos de experiencia</p>
+            <h3 className="text-white font-bold text-lg mb-2">Técnicos Certificados</h3>
+            <p className="text-gray-400 text-sm">Personal altamente capacitado con años de experiencia</p>
           </div>
           <div className="card-cyber neon-border-magenta group hover:shadow-glow-magenta transition-all">
             <div className="w-14 h-14 bg-magenta/10 rounded-xl flex items-center justify-center mb-4 group-hover:shadow-glow-magenta transition-all">
               <Clock className="w-8 h-8 text-magenta-light icon-glow" />
             </div>
-            <h3 className="text-white font-bold text-lg mb-2">Servicio Rapido</h3>
-            <p className="text-gray-400 text-sm">Mayoria de reparaciones listas el mismo dia</p>
+            <h3 className="text-white font-bold text-lg mb-2">Servicio Rápido</h3>
+            <p className="text-gray-400 text-sm">Mayoría de reparaciones listas el mismo día</p>
           </div>
           <div className="card-cyber neon-border-violet group hover:shadow-glow-violet transition-all" style={{ borderColor: 'rgba(139, 92, 246, 0.5)' }}>
             <div className="w-14 h-14 bg-violet/10 rounded-xl flex items-center justify-center mb-4 group-hover:shadow-glow-violet transition-all">
               <Shield className="w-8 h-8 text-violet icon-glow" />
             </div>
-            <h3 className="text-white font-bold text-lg mb-2">Garantia Incluida</h3>
-            <p className="text-gray-400 text-sm">Todas las reparaciones incluyen garantia de 90 dias</p>
+            <h3 className="text-white font-bold text-lg mb-2">Garantía Incluida</h3>
+            <p className="text-gray-400 text-sm">Todas las reparaciones incluyen garantía de 90 días</p>
           </div>
         </div>
 
@@ -104,7 +104,7 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps) {
             onClick={() => onNavigate('appointments')}
             className="btn-cyberpunk"
           >
-            Agendar Cita de Reparacion
+            Agendar Cita de Reparación
           </button>
         </div>
       </div>

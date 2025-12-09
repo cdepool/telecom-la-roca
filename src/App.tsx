@@ -69,39 +69,39 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-900">
       <Header onNavigate={handleNavigate} />
-      
+
       {/* Admin Button for admins */}
       {isAdmin && (
         <button
           onClick={() => setShowAdmin(true)}
           className="fixed bottom-6 right-6 z-40 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-colors"
-          title="Panel de Administracion"
+          title="Panel de Administración"
         >
           <Settings className="w-6 h-6" />
         </button>
       )}
-      
+
       <main>
         <div ref={homeRef}>
           <Hero onNavigate={handleNavigate} />
         </div>
-        
+
         <div ref={servicesRef}>
           <ServicesSection onNavigate={handleNavigate} />
         </div>
-        
+
         <div ref={productsRef}>
           <ProductsSection onNavigate={handleNavigate} />
         </div>
-        
+
         <div ref={designerRef}>
           <FabricDesigner />
         </div>
-        
+
         <div ref={appointmentsRef}>
           <AppointmentsSection />
         </div>
-        
+
         <div ref={contactRef}>
           <ContactSection />
         </div>
@@ -119,9 +119,9 @@ function App() {
       )}
 
       {showAuth && (
-        <AuthModal 
-          onClose={() => setShowAuth(false)} 
-          onSuccess={() => setShowAuth(false)} 
+        <AuthModal
+          onClose={() => setShowAuth(false)}
+          onSuccess={() => setShowAuth(false)}
         />
       )}
 

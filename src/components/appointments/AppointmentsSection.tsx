@@ -20,10 +20,10 @@ export function AppointmentsSection() {
               <Calendar className="w-10 h-10 text-blue-400 mb-4" />
               <h3 className="text-white font-semibold text-lg mb-2">Reserva Online</h3>
               <p className="text-gray-400 text-sm">
-                Elige el dia y hora que mejor te convenga desde cualquier dispositivo
+                Elige el día y hora que mejor te convenga desde cualquier dispositivo
               </p>
             </div>
-            
+
             <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
               <Clock className="w-10 h-10 text-orange-400 mb-4" />
               <h3 className="text-white font-semibold text-lg mb-2">Sin Esperas</h3>
@@ -31,20 +31,20 @@ export function AppointmentsSection() {
                 Llegando a tu cita te atendemos inmediatamente
               </p>
             </div>
-            
+
             <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
               <Shield className="w-10 h-10 text-green-400 mb-4" />
-              <h3 className="text-white font-semibold text-lg mb-2">Garantia</h3>
+              <h3 className="text-white font-semibold text-lg mb-2">Garantía</h3>
               <p className="text-gray-400 text-sm">
-                90 dias de garantia en todas las reparaciones
+                90 días de garantía en todas las reparaciones
               </p>
             </div>
-            
+
             <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
               <Star className="w-10 h-10 text-yellow-400 mb-4" />
               <h3 className="text-white font-semibold text-lg mb-2">Calidad</h3>
               <p className="text-gray-400 text-sm">
-                Repuestos originales y tecnicos certificados
+                Repuestos originales y técnicos certificados
               </p>
             </div>
           </div>
