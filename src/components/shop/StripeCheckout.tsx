@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, MessageCircle, Check, Lock, AlertCircle, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, MessageCircle, Check, Lock, AlertCircle, ShoppingBag, ExternalLink } from 'lucide-react';
 import { useCartStore } from '../../store/cartStore';
 import { supabase } from '../../lib/supabase';
 
@@ -12,6 +12,7 @@ export function StripeCheckout({ onBack }: CheckoutProps) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [whatsappUrl, setWhatsappUrl] = useState('');
   const [form, setForm] = useState({
     email: '',
     name: '',
@@ -28,7 +29,26 @@ export function StripeCheckout({ onBack }: CheckoutProps) {
     setError('');
 
     try {
-      // 1. Save order to Supabase first (for record keeping)
+      // 1. Construct WhatsApp Message (Do this first to be safe)
+      const lineItems = items.map(item =>
+        `• ${item.product.name} (x${item.quantity}) - $${((item.product.discount_price || item.product.price) * item.quantity).toFixed(2)}`
+      ).join('\n');
+
+      const message = `*NUEVO PEDIDO WEB* 🛍️\n\n` +
+        `*Cliente:* ${form.name}\n` +
+        `*Teléfono:* ${form.phone}\n` +
+        `*Email:* ${form.email}\n` +
+        `*Dirección:* ${form.address}, ${form.city}, ${form.state}\n\n` +
+        `*--- DETALLE DEL PEDIDO ---*\n` +
+        `${lineItems}\n\n` +
+        `*TOTAL: $${getTotal().toFixed(2)}*\n\n` +
+        `_Enviado desde el formulario web_`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const url = `https://wa.me/584245896062?text=${encodedMessage}`;
+      setWhatsappUrl(url);
+
+      // 2. Save order to Supabase
       const { error: orderError } = await supabase.from('orders').insert({
         total_amount: getTotal(),
         customer_email: form.email,
@@ -45,35 +65,23 @@ export function StripeCheckout({ onBack }: CheckoutProps) {
           state: form.state,
           postal_code: form.postal_code,
         },
-        status: 'whatsapp_pending', // Custom status to indicate initiated via WhatsApp
+        status: 'whatsapp_pending',
         payment_method: 'whatsapp'
       });
 
       if (orderError) {
         console.error('Error saving order:', orderError);
-        // We continue even if save fails, as the primary goal is WhatsApp
+        // Continue anyway
       }
 
-      // 2. Construct WhatsApp Message
-      const lineItems = items.map(item =>
-        `• ${item.product.name} (x${item.quantity}) - $${((item.product.discount_price || item.product.price) * item.quantity).toFixed(2)}`
-      ).join('\n');
+      // 3. Open WhatsApp and Show Success
+      // Try to open in new tab
+      const newWindow = window.open(url, '_blank');
 
-      const message = `*NUEVO PEDIDO WEB* 🛍️\n\n` +
-        `*Cliente:* ${form.name}\n` +
-        `*Teléfono:* ${form.phone}\n` +
-        `*Email:* ${form.email}\n` +
-        `*Dirección:* ${form.address}, ${form.city}, ${form.state}\n\n` +
-        `*--- DETALLE DEL PEDIDO ---*\n` +
-        `${lineItems}\n\n` +
-        `*TOTAL: $${getTotal().toFixed(2)}*\n\n` +
-        `_Enviado desde el formulario web_`;
-
-      // 3. Encode and Redirect
-      const encodedMessage = encodeURIComponent(message);
-      const whatsappUrl = `https://wa.me/584245896062?text=${encodedMessage}`;
-
-      window.open(whatsappUrl, '_blank');
+      // If popup blocked (newWindow is null), the user will still see the success screen with the button
+      if (!newWindow) {
+        console.log('Popup blocked, expecting manual click');
+      }
 
       setSuccess(true);
       clearCart();
@@ -84,21 +92,41 @@ export function StripeCheckout({ onBack }: CheckoutProps) {
     setLoading(false);
   };
 
+  const openWhatsApp = () => {
+    if (whatsappUrl) {
+      window.open(whatsappUrl, '_blank');
+    }
+  };
+
   if (success) {
     return (
       <div className="fixed inset-0 bg-gray-900 z-50 flex items-center justify-center p-4">
-        <div className="text-center max-w-md">
+        <div className="text-center max-w-md bg-gray-800 p-8 rounded-2xl border border-green-500/30 shadow-2xl">
           <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-10 h-10 text-green-400" />
           </div>
-          <h2 className="text-3xl font-bold text-white mb-4">¡Pedido Iniciado!</h2>
-          <p className="text-gray-400 mb-8">
-            Se ha abierto WhatsApp para completar tu pedido. Si no se abrió automáticamente, verifica tus ventanas emergentes.
+          <h2 className="text-3xl font-bold text-white mb-4">¡Pedido Registrado!</h2>
+          <p className="text-gray-300 mb-6">
+            Hemos guardado tu pedido. Para finalizar, debes enviar el detalle por WhatsApp.
           </p>
+
+          <button
+            onClick={openWhatsApp}
+            className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white px-6 py-4 rounded-xl font-bold text-lg mb-4 flex items-center justify-center gap-2 transition-all hover:scale-105 shadow-lg animate-pulse"
+          >
+            <MessageCircle className="w-6 h-6" />
+            Enviar Mensaje a WhatsApp
+          </button>
+
+          <p className="text-gray-500 text-sm mb-6">
+            Si no se abrió automáticamente, haz clic en el botón verde.
+          </p>
+
           <button
             onClick={onBack}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all hover:scale-105"
+            className="text-gray-400 hover:text-white font-semibold transition-colors flex items-center justify-center gap-2 mx-auto"
           >
+            <ArrowLeft className="w-4 h-4" />
             Volver a la Tienda
           </button>
         </div>
